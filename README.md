@@ -1,4 +1,4 @@
-# SwingLog
+# Swing_Log
 
 ## サイト概要
 ### サイトテーマ
