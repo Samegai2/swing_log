@@ -1,0 +1,18 @@
+<h1>投稿一覧</h1>
+
+<%= link_to "新規投稿", new_post_path %>
+
+<% @posts.each do |post| %>
+  <div>
+    <% if post.image.attached? %>
+      <%= image_tag post.image, width: 200 %>
+    <% end %>
+
+    <h2><%= link_to post.title, post_path(post) %></h2>
+    <p>施設名：<%= post.facility_name %></p>
+    <p>住所：<%= post.address %></p>
+    <p>種別：<%= post.play_style %></p>
+    <p>スコア：<%= post.score %></p>
+    <p>感想：<%= post.body %></p>
+  </div>
+<% end %>

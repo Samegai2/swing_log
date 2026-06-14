@@ -1,0 +1,44 @@
+<h1>新規登録</h1>
+
+<% if @user.errors.any? %>
+  <div>
+    <h2><%= @user.errors.count %>件のエラーがあります</h2>
+    <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_with model: @user do |f| %>
+
+  <div>
+    <%= f.label :name, "ユーザー名" %><br>
+    <%= f.text_field :name %>
+  </div>
+
+  <div>
+    <%= f.label :email_address, "メールアドレス" %><br>
+    <%= f.email_field :email_address %>
+  </div>
+
+  <div>
+    <%= f.label :password, "パスワード" %><br>
+    <%= f.password_field :password %>
+  </div>
+
+  <div>
+    <%= f.label :password_confirmation, "パスワード（確認用）" %><br>
+    <%= f.password_field :password_confirmation %>
+  </div>
+
+  <div>
+    <%= f.submit "新規登録" %>
+  </div>
+
+<% end %>
+
+<p>
+  <%= link_to "ログインはこちら", new_session_path %>
+</p>

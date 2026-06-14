@@ -1,0 +1,26 @@
+<div class="container text-center mt-5">
+
+  <h1>Swing Log</h1>
+
+  <p class="lead">
+    ゴルフの記録と体験を共有するSNS
+  </p>
+
+  <p>
+    ゴルフ場や打ちっぱなしでのプレー記録、
+    スコア、感想、写真を投稿して
+    ゴルフ仲間と交流しましょう。
+  </p>
+
+  <div class="mt-4">
+    <%= link_to "投稿一覧を見る", posts_path, class: "btn btn-success" %>
+
+    <% unless authenticated? %>
+      <%= link_to "新規登録", new_user_path, class: "btn btn-primary" %>
+
+      <%= link_to "ログイン", new_session_path, class: "btn btn-outline-primary" %>
+    <% end %>
+  </div>
+
+</div>
+

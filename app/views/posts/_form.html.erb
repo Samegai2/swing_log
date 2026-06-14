@@ -1,0 +1,53 @@
+<% if post.errors.any? %>
+  <ul>
+    <% post.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= form_with model: post do |f| %>
+  <div>
+    <%= f.label :title, "タイトル" %>
+    <%= f.text_field :title %>
+  </div>
+
+  <div>
+    <%= f.label :facility_name, "施設名" %>
+    <%= f.text_field :facility_name %>
+  </div>
+
+  <div>
+    <%= f.label :address, "住所" %>
+    <%= f.text_field :address %>
+  </div>
+
+  <div>
+    <%= f.label :play_style, "種別" %>
+    <%= f.select :play_style,
+      [
+        ["打ちっぱなし", "driving_range"],
+        ["ハーフラウンド", "half_round"],
+        ["1ラウンド", "full_round"]
+      ],
+      { prompt: "選択してください" }
+    %>
+  </div>
+
+  <div>
+    <%= f.label :score, "スコア" %>
+    <%= f.number_field :score %>
+  </div>
+
+  <div>
+    <%= f.label :body, "感想" %>
+    <%= f.text_area :body %>
+  </div>
+
+  <div>
+    <%= f.label :image, "施設写真" %>
+    <%= f.file_field :image %>
+  </div>
+
+  <%= f.submit %>
+<% end %>
