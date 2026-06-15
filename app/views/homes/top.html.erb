@@ -12,15 +12,5 @@
     ゴルフ仲間と交流しましょう。
   </p>
 
-  <div class="mt-4">
-    <%= link_to "投稿一覧を見る", posts_path, class: "btn btn-success" %>
-
-    <% unless authenticated? %>
-      <%= link_to "新規登録", new_user_path, class: "btn btn-primary" %>
-
-      <%= link_to "ログイン", new_session_path, class: "btn btn-outline-primary" %>
-    <% end %>
-  </div>
-
 </div>
 

@@ -1,2 +1,27 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<h1>マイページ</h1>
+
+<p>ユーザー名：<%= @user.name %></p>
+<p>メールアドレス：<%= @user.email_address %></p>
+
+<% if @user == Current.session.user %>
+  <%= link_to "ユーザー情報編集", edit_user_path(@user) %>
+
+  <%= link_to "退会する", user_path(@user),
+      data: {
+        turbo_method: :delete,
+        turbo_confirm: "本当に退会しますか？"
+      } %>
+<% end %>
+
+<h2>投稿一覧</h2>
+
+<% @posts.each do |post| %>
+  <div>
+    <h3><%= link_to post.title, post_path(post) %></h3>
+    <p>施設名：<%= post.facility_name %></p>
+    <p>住所：<%= post.address %></p>
+    <p>種別：<%= post.play_style_i18n %></p>
+    <p>スコア：<%= post.score %></p>
+    <p>感想：<%= post.body %></p>
+  </div>
+<% end %>

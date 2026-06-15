@@ -4,8 +4,9 @@
     <%= link_to "About", about_path %>
     <%= link_to "投稿一覧", posts_path %>
 
-    <% if authenticated? %>
-      <%= button_to "ログアウト", session_path, method: :delete %>
+    <% if Current.session&.user %>
+      <%= link_to "マイページ", user_path(Current.session.user) %>
+      <%= button_to "ログアウト", session_path, method: :delete %>      
     <% else %>
       <%= link_to "新規登録", new_user_path %>
       <%= link_to "ログイン", new_session_path %>

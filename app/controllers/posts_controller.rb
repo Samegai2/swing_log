@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  allow_unauthenticated_access only: [:index ,:show]
+  allow_unauthenticated_access only: [:index]
 
   before_action :set_post, only: [:show, :edit, :update, :destroy]
   before_action :ensure_owner, only: [:edit, :update, :destroy]
@@ -16,12 +16,12 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Current.user.posts.new(post_params)
+    @post = Current.session.user.posts.new(post_params)
 
     if @post.save
       redirect_to @post, notice: "投稿しました"
     else
-      render :new, status: :unprocessable_entiny
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -32,7 +32,7 @@ class PostsController < ApplicationController
     if @post.update(post_params)
       redirect_to @post, notice: "投稿を更新しました"
     else
-      render :edit, status: :unprocessable_entiny
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -48,7 +48,7 @@ class PostsController < ApplicationController
   end
 
   def ensure_owner
-    redirect_to posts_path, alert: "権限がありません" unless @post.user == Current.user
+    redirect_to posts_path, alert: "権限がありません" unless @post.user == Current.session.user
   end
 
   def post_params

@@ -37,7 +37,7 @@ class UsersController < ApplicationController
   def destroy
     @user.destroy
     reset_session
-    redirect_to new_user_path, notice: "退会しました"
+    redirect_to root_path, notice: "退会しました"
   end
 
   private
@@ -47,7 +47,7 @@ class UsersController < ApplicationController
   end
 
   def ensure_current_user
-    redirect_to root_path, alert: "権限がありません" unless @user == Current.user
+    redirect_to root_path, alert: "権限がありません" unless @user == Current.session.user
   end
 
   def user_params

@@ -1,0 +1,7 @@
+ja:
+  enums:
+    post:
+      play_style:
+        driving_range: "打ちっぱなし"
+        half_round: "ハーフラウンド"
+        full_round: "１ラウンド"
