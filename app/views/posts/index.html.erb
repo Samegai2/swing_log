@@ -1,18 +1,30 @@
 <h1>投稿一覧</h1>
 
-<%= link_to "新規投稿", new_post_path %>
+<div class="page-actions">
+  <%= link_to "新規投稿", new_post_path, class: "btn" %>
+</div>
 
-<% @posts.each do |post| %>
-  <div>
-    <% if post.image.attached? %>
-      <%= image_tag post.image, width: 200 %>
-    <% end %>
+<div class="post-list">
+  <% @posts.each do |post| %>
+    <div class="post-card">
 
-    <h2><%= link_to post.title, post_path(post) %></h2>
-    <p>施設名：<%= post.facility_name %></p>
-    <p>住所：<%= post.address %></p>
-    <p>種別：<%= post.play_style_i18n %></p>
-    <p>スコア：<%= post.score %></p>
-    <p>感想：<%= post.body %></p>
-  </div>
-<% end %>
+      <% if post.image.attached? %>
+        <div class="post-image">
+          <%= image_tag post.image, width: 250 %>
+        </div>
+      <% end %>
+
+      <h2>
+        <%= link_to post.title, post_path(post) %>
+      </h2>
+
+      <p><strong>投稿者：</strong><%= post.user&.name || "投稿者不明" %></p>
+      <p><strong>施設名：</strong><%= post.facility_name %></p>
+      <p><strong>住所：</strong><%= post.address %></p>
+      <p><strong>種別：</strong><%= post.play_style_i18n %></p>
+      <p><strong>スコア：</strong><%= post.score %></p>
+      <p><strong>感想：</strong><%= truncate(post.body, length: 100) %></p>
+
+    </div>
+  <% end %>
+</div>

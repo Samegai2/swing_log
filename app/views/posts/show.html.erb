@@ -1,23 +1,36 @@
-<h1><%= @post.title %></h1>
+<div class="post-card">
 
-<% if @post.image.attached? %>
-  <%= image_tag @post.image, width: 400 %>
-<% end %>
+  <h1><%= @post.title %></h1>
 
-<p>施設名：<%= @post.facility_name %></p>
-<p>住所：<%= @post.address %></p>
-<p>種別：<%= @post.play_style_i18n %></p>
-<p>スコア：<%= @post.score %></p>
-<p>感想：<%= @post.body %></p>
+  <% if @post.image.attached? %>
+    <div class="post-image">
+      <%= image_tag @post.image, width: 500 %>
+    </div>
+  <% end %>
 
-<% if Current.session&.user == @post.user %>
-  <%= link_to "編集", edit_post_path(@post) %>
+  <p><strong>投稿者：</strong><%= @post.user&.name || "投稿者不明" %></p>
+  <p><strong>施設名：</strong><%= @post.facility_name %></p>
+  <p><strong>住所：</strong><%= @post.address %></p>
+  <p><strong>種別：</strong><%= @post.play_style_i18n %></p>
+  <p><strong>スコア：</strong><%= @post.score %></p>
+  <p><strong>感想：</strong><%= simple_format(@post.body) %></p>
 
-  <%= link_to "削除", post_path(@post),
-      data: {
-        turbo_method: :delete,
-        turbo_confirm: "本当に削除しますか？"
-      } %>
-<% end %>
+  <% if Current.session&.user == @post.user %>
+    <div class="post-actions">
+      <%= link_to "編集", edit_post_path(@post), class: "btn" %>
 
-<%= link_to "投稿一覧へ戻る", posts_path %>
+      <%= link_to "削除",
+          post_path(@post),
+          data: {
+            turbo_method: :delete,
+            turbo_confirm: "本当に削除しますか？"
+          },
+          class: "btn btn-danger" %>
+    </div>
+  <% end %>
+
+</div>
+
+<div class="back-link">
+  <%= link_to "投稿一覧へ戻る", posts_path %>
+</div>

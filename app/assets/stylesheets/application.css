@@ -8,3 +8,128 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f7f9f8;
+  color: #333;
+}
+
+header {
+  background-color: #1f7a4d;
+  padding: 16px 24px;
+}
+
+header nav {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+header a,
+header button {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+header button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.container {
+  max-width: 960px;
+  margin: 32px auto;
+  padding: 24px;
+  background-color: white;
+  border-radius: 12px;
+}
+
+h1, h2, h3 {
+  color: #1f7a4d;
+}
+
+a {
+  color: #1f7a4d;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  max-width: 500px;
+  padding: 8px;
+  margin: 6px 0 16px;
+}
+
+input[type="submit"],
+button {
+  width: auto;
+  padding: 8px 16px;
+  background-color: #1f7a4d;
+  color: white;
+  border: none;
+  border-radius: 6px;
+}
+
+.post-list {
+  display: grid;
+  gap: 24px;
+}
+
+.post-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  border: 1px solid #e0e0e0;
+}
+
+.post-card h1,
+.post-card h2 {
+  margin-top: 0;
+}
+
+.post-card p {
+  margin: 10px 0;
+}
+
+.post-image {
+  margin-bottom: 16px;
+}
+
+.post-image img {
+  border-radius: 8px;
+  max-width: 100%;
+  height: auto;
+}
+
+.page-actions {
+  margin-bottom: 20px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 8px 16px;
+  background-color: #1f7a4d;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+}
+
+.btn-danger {
+  background-color: #d9534f;
+}
+
+.post-actions {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.back-link {
+  margin-top: 20px;
+}
