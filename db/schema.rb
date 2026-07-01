@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_06_14_161721) do
+ActiveRecord::Schema[8.0].define(version: 2026_07_01_122008) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -40,7 +40,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_06_14_161721) do
   end
 
   create_table "posts", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.bigint "user_id"
     t.string "facility_name"
     t.string "address"
     t.integer "play_style"
@@ -53,7 +53,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_06_14_161721) do
   end
 
   create_table "sessions", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.bigint "user_id"
     t.string "ip_address"
     t.string "user_agent"
     t.datetime "created_at", null: false
