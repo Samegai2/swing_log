@@ -1,27 +1,61 @@
-<h1>マイページ</h1>
+<h1><%= @user.name %>さんのページ</h1>
 
-<p>ユーザー名：<%= @user.name %></p>
-<p>メールアドレス：<%= @user.email_address %></p>
+<div class="user-profile-card">
+  <p><strong>ユーザー名：</strong><%= @user.name %></p>
+  <p><strong>メールアドレス：</strong><%= @user.email_address %></p>
 
-<% if @user == Current.session.user %>
-  <%= link_to "ユーザー情報編集", edit_user_path(@user) %>
+  <p>
+    <strong>自己紹介：</strong>
+    <%= @user.introduction.presence || "自己紹介はまだありません。" %>
+  </p>
 
-  <%= link_to "退会する", user_path(@user),
-      data: {
-        turbo_method: :delete,
-        turbo_confirm: "本当に退会しますか？"
-      } %>
-<% end %>
+  <% if @user == Current.session.user %>
+    <div class="user-profile-actions">
+      <%= link_to "ユーザー情報編集", edit_user_path(@user), class: "btn" %>
+
+      <%= button_to "退会する",
+        user_path(@user),
+        method: :delete,
+        data: { turbo_confirm: "本当に退会しますか？" },
+        class: "btn-danger" %>
+    </div>
+  <% end %>
+</div>
 
 <h2>投稿一覧</h2>
 
-<% @posts.each do |post| %>
-  <div>
-    <h3><%= link_to post.title, post_path(post) %></h3>
-    <p>施設名：<%= post.facility_name %></p>
-    <p>住所：<%= post.address %></p>
-    <p>種別：<%= post.play_style_i18n %></p>
-    <p>スコア：<%= post.score %></p>
-    <p>感想：<%= post.body %></p>
-  </div>
-<% end %>
+<div class="post-list">
+  <% @posts.each do |post| %>
+    <div class="post-card">
+      <% if post.image.attached? %>
+        <div class="post-image">
+          <%= image_tag post.image, class: "post-card-image" %>
+        </div>
+      <% end %>
+
+      <h3>
+        <%= link_to post.title, post_path(post) %>
+      </h3>
+
+      <p><strong>施設名：</strong><%= post.facility_name %></p>
+      <p><strong>住所：</strong><%= post.address %></p>
+      <p><strong>種別：</strong><%= post.play_style_i18n %></p>
+
+      <p>
+        <strong><%= post.score_label %>：</strong>
+        <%= post.score %>
+      </p>
+
+      <p class="post-body-one-line">
+        <strong>感想：</strong>
+        <%= truncate(post.body, length: 100) %>
+      </p>
+
+      <div class="post-date">
+        <p>投稿日時：<%= post.created_at.strftime("%Y/%m/%d %H:%M") %></p>
+        <p>更新日時：<%= post.updated_at.strftime("%Y/%m/%d %H:%M") %></p>
+      </div>
+    </div>
+  <% end %>
+</div>
+

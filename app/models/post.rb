@@ -13,6 +13,14 @@ class Post < ApplicationRecord
   validates :facility_name, presence: true
   validates :address, presence: true
   validates :play_style, presence: true
+  validates :score, presence: true
   validates :body, presence: true
 
+  def score_label
+    if driving_range?
+      "打数"
+    else
+      "スコア"
+    end
+  end
 end

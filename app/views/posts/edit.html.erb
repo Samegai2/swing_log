@@ -2,4 +2,12 @@
 
 <%= render "form", post: @post %>
 
-<%= link_to "投稿詳細へ戻る", post_path(@post) %>
+<div class="edit-actions-left">
+  <%= link_to "投稿詳細へ戻る", post_path(@post), class: "btn-sub" %>
+
+  <%= button_to "削除する",
+      post_path(@post),
+      method: :delete,
+      data: { turbo_confirm: "本当に削除しますか？" },
+      class: "btn-danger" %>
+</div>

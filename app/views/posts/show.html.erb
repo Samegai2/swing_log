@@ -3,8 +3,8 @@
   <h1><%= @post.title %></h1>
 
   <% if @post.image.attached? %>
-    <div class="post-image">
-      <%= image_tag @post.image, width: 500 %>
+    <div class="post-show-image-wrapper">
+      <%= image_tag @post.image, class: "post-show-image" %>
     </div>
   <% end %>
 
@@ -13,7 +13,9 @@
   <p><strong>住所：</strong><%= @post.address %></p>
   <p><strong>種別：</strong><%= @post.play_style_i18n %></p>
   <p><strong>スコア：</strong><%= @post.score %></p>
-  <p><strong>感想：</strong><%= simple_format(@post.body) %></p>
+  <p class="post-body-detail">
+    <strong>感想：</strong><%= simple_format(@post.body, {}, wrapper_tag: "span") %>
+  </p>
 
   <% if Current.session&.user == @post.user %>
     <div class="post-actions">

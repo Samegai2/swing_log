@@ -6,25 +6,49 @@
 
 <div class="post-list">
   <% @posts.each do |post| %>
-    <div class="post-card">
+    <div class="post-card-wide">
+      <div class="post-card-image-area">
+        <% if post.image.attached? %>
+          <%= image_tag post.image, class: "post-index-image" %>
+        <% else %>
+          <div class="post-no-image">
+            NO IMAGE
+          </div>
+        <% end %>
+      </div>
 
-      <% if post.image.attached? %>
-        <div class="post-image">
-          <%= image_tag post.image, width: 250 %>
+      <div class="post-card-content">
+        <h2 class="post-card-title">
+          <%= link_to post.title, post_path(post) %>
+        </h2>
+
+        <p>
+          <strong>投稿者：</strong>
+          <% if post.user.present? %>
+            <%= link_to post.user.name, user_path(post.user), class: "user-link" %>
+          <% else %>
+            投稿者不明
+          <% end %>
+        </p>
+
+        <p><strong>施設名：</strong><%= post.facility_name %></p>
+        <p><strong>住所：</strong><%= post.address %></p>
+        <p><strong>種別：</strong><%= post.play_style_i18n %></p>
+
+        <p>
+          <strong><%= post.score_label %>：</strong>
+          <%= post.score %>
+        </p>
+
+        <p class="post-body-one-line">
+          <strong>感想：</strong><%= truncate(post.body, length: 100) %>
+        </p>
+
+        <div class="post-date">
+          <p>投稿日時：<%= post.created_at.strftime("%Y/%m/%d %H:%M") %></p>
+          <p>更新日時：<%= post.updated_at.strftime("%Y/%m/%d %H:%M") %></p>
         </div>
-      <% end %>
-
-      <h2>
-        <%= link_to post.title, post_path(post) %>
-      </h2>
-
-      <p><strong>投稿者：</strong><%= post.user&.name || "投稿者不明" %></p>
-      <p><strong>施設名：</strong><%= post.facility_name %></p>
-      <p><strong>住所：</strong><%= post.address %></p>
-      <p><strong>種別：</strong><%= post.play_style_i18n %></p>
-      <p><strong>スコア：</strong><%= post.score %></p>
-      <p><strong>感想：</strong><%= truncate(post.body, length: 100) %></p>
-
+      </div>
     </div>
   <% end %>
 </div>
