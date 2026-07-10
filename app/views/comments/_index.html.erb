@@ -1,0 +1,35 @@
+<div class="mt-4">
+  <h3 class="h5 mb-3">コメント一覧</h3>
+
+  <% if comments.blank? %>
+    <div class="alert alert-secondary">コメントはまだありません。</div>
+  <% else %>
+    <% comments.each do |comment| %>
+      <div class="card shadow-sm mb-3">
+        <div class="card-body">
+          <p class="mb-1">
+            <strong>投稿者：</strong>
+            <%= link_to comment.user.name, user_path(comment.user), class: "text-success fw-bold" %>
+          </p>
+
+          <p class="mb-2">
+            <%= simple_format(comment.body) %>
+          </p>
+
+          <p class="text-muted small mb-2">
+            投稿日時：<%= comment.created_at.strftime("%Y/%m/%d %H:%M") %>
+          </p>
+
+          <% if comment.user == Current.session&.user %>
+            <%= button_to "削除",
+                post_comment_path(post, comment),
+                method: :delete,
+                data: { turbo_confirm: "本当に削除しますか？" },
+                class: "btn btn-danger btn-sm",
+                form: { class: "d-inline" } %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>

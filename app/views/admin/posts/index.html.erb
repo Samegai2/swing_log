@@ -1,0 +1,46 @@
+<h1 class="mb-4">投稿一覧</h1>
+
+<%= form_with url: admin_posts_path, method: :get, local: true, class: "row g-2 mb-4" do |f| %>
+  <div class="col-md-6">
+    <%= f.text_field :q, value: params[:q], placeholder: "タイトル・施設名・住所・投稿者で検索", class: "form-control" %>
+  </div>
+  <div class="col-auto">
+    <%= f.submit "検索", class: "btn btn-primary" %>
+  </div>
+<% end %>
+
+<div class="card shadow-sm">
+  <div class="card-body">
+    <table class="table table-hover align-middle">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>タイトル</th>
+          <th>投稿者</th>
+          <th>施設名</th>
+          <th>投稿日時</th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @posts.each do |post| %>
+          <tr>
+            <td><%= post.id %></td>
+            <td><%= link_to post.title, admin_post_path(post) %></td>
+            <td><%= post.user&.name || "退会済みユーザー" %></td>
+            <td><%= post.facility_name %></td>
+            <td><%= l post.created_at, format: :short %></td>
+            <td class="text-end">
+              <%= link_to "詳細", admin_post_path(post), class: "btn btn-sm btn-outline-primary" %>
+              <%= link_to "コメント", admin_post_comments_path(post), class: "btn btn-sm btn-outline-secondary" %>
+              <%= link_to "削除", admin_post_path(post),
+                    data: { turbo_method: :delete, turbo_confirm: "この投稿を削除しますか？" },
+                    class: "btn btn-sm btn-outline-danger" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

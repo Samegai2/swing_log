@@ -1,0 +1,16 @@
+<div class="card shadow-sm mt-4">
+  <div class="card-body">
+    <h3 class="h5 mb-3">コメントする</h3>
+
+    <%= form_with model: [post, comment], local: true do |f| %>
+      <div class="mb-3">
+        <%= f.text_area :body,
+            rows: 4,
+            placeholder: "コメントを入力してください",
+            class: "form-control" %>
+      </div>
+
+      <%= f.submit "送信", class: "btn btn-success" %>
+    <% end %>
+  </div>
+</div>

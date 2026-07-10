@@ -1,0 +1,67 @@
+<h1 class="mb-4">投稿詳細</h1>
+
+<div class="card shadow-sm mb-4">
+  <div class="card-body">
+    <% if @post.image.attached? %>
+      <div class="mb-3">
+        <%= image_tag @post.image, class: "admin-post-image" %>
+      </div>
+    <% end %>
+
+    <p><strong>ID：</strong><%= @post.id %></p>
+    <p><strong>タイトル：</strong><%= @post.title %></p>
+    <p><strong>投稿者：</strong><%= @post.user&.name || "退会済みユーザー" %></p>
+    <p><strong>施設名：</strong><%= @post.facility_name %></p>
+    <p><strong>住所：</strong><%= @post.address %></p>
+    <p><strong>種別：</strong><%= @post.play_style %></p>
+    <p><strong>スコア：</strong><%= @post.score %></p>
+    <p><strong>感想：</strong><%= @post.body %></p>
+    <p><strong>投稿日時：</strong><%= l @post.created_at, format: :short %></p>
+    <p><strong>更新日時：</strong><%= l @post.updated_at, format: :short %></p>
+
+    <%= link_to "投稿一覧へ戻る", admin_posts_path, class: "btn btn-secondary" %>
+    <%= link_to "コメント一覧", admin_post_comments_path(@post), class: "btn btn-outline-primary" %>
+    <%= link_to "削除", admin_post_path(@post),
+          data: { turbo_method: :delete, turbo_confirm: "この投稿を削除しますか？" },
+          class: "btn btn-danger" %>
+  </div>
+</div>
+
+<h2 class="mb-3">コメント</h2>
+
+<div class="card shadow-sm">
+  <div class="card-body">
+    <% if @comments.any? %>
+      <table class="table table-hover align-middle">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>投稿者</th>
+            <th>コメント</th>
+            <th>日時</th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @comments.each do |comment| %>
+            <tr>
+              <td><%= comment.id %></td>
+              <td><%= comment.user&.name || "退会済みユーザー" %></td>
+              <td><%= comment.body %></td>
+              <td><%= l comment.created_at, format: :short %></td>
+              <td class="text-end">
+                <%= link_to "詳細", admin_post_comment_path(@post, comment), class: "btn btn-sm btn-outline-primary" %>
+                <%= link_to "削除", admin_post_comment_path(@post, comment),
+                      data: { turbo_method: :delete, turbo_confirm: "このコメントを削除しますか？" },
+                      class: "btn btn-sm btn-outline-danger" %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p class="text-muted">コメントはありません。</p>
+    <% end %>
+  </div>
+</div>

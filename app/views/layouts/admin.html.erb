@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "Admin - Swing Log" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
+    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+
+    <!-- Bootstrap 5.3.0 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success mb-4">
+      <div class="container">
+        <%= link_to "Swing Log 管理者", admin_root_path, class: "navbar-brand text-dark fw-bold" %>
+
+        <% if current_admin.present? %>
+          <div class="navbar-nav ms-auto">
+            <%= link_to "投稿一覧", admin_posts_path, class: "nav-link text-dark fw-bold" %>
+            <%= link_to "コメント一覧", admin_comments_path, class: "nav-link text-dark fw-bold" %>
+            <%= link_to "ユーザー一覧", admin_users_path, class: "nav-link text-dark fw-bold" %>
+            <%= link_to "ログアウト", admin_sign_out_path,
+                  data: { turbo_method: :delete, turbo_confirm: "ログアウトしますか？" },
+                  class: "nav-link text-dark fw-bold" %>
+          </div>
+        <% end %>
+      </div>
+    </nav>
+
+    <main class="container">
+      <% flash.each do |type, message| %>
+        <% next if message.blank? %>
+
+        <div class="alert <%= type.to_s == "notice" ? "alert-success" : "alert-danger" %>">
+          <%= message %>
+        </div>
+      <% end %>
+
+      <%= yield %>
+    </main>
+
+    <!-- Bootstrap 5.3.0 JS -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGDIlKrxdiJJigb/j/68SIy3Te4Bkz"
+      crossorigin="anonymous">
+    </script>
+  </body>
+</html>

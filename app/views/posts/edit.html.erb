@@ -3,7 +3,7 @@
 <%= render "form", post: @post %>
 
 <div class="edit-actions-left">
-  <%= link_to "投稿詳細へ戻る", post_path(@post), class: "btn-sub" %>
+  <%= link_to "投稿詳細へ戻る", post_path(@post), class: "btn btn-secondary" %>
 
   <%= button_to "削除する",
       post_path(@post),

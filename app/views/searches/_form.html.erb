@@ -1,0 +1,22 @@
+<%= form_with url: search_path, method: :get, local: true, class: "d-flex gap-2" do |f| %>
+  <%= f.text_field :content,
+      placeholder: "キーワード",
+      class: "form-control form-control-sm" %>
+
+  <%= f.select :model,
+      options_for_select({ "投稿" => "post", "ユーザー" => "user" }),
+      {},
+      class: "form-select form-select-sm" %>
+
+  <%= f.select :method,
+      options_for_select({
+        "完全一致" => "perfect",
+        "前方一致" => "forward",
+        "後方一致" => "backward",
+        "部分一致" => "partial"
+      }),
+      {},
+      class: "form-select form-select-sm" %>
+
+  <%= f.submit "検索", class: "btn btn-light btn-sm" %>
+<% end %>

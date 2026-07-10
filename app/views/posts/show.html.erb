@@ -19,7 +19,7 @@
 
   <% if Current.session&.user == @post.user %>
     <div class="post-actions">
-      <%= link_to "編集", edit_post_path(@post), class: "btn" %>
+      <%= link_to "編集", edit_post_path(@post), class: "btn btn-success" %>
 
       <%= link_to "削除",
           post_path(@post),
@@ -34,5 +34,8 @@
 </div>
 
 <div class="back-link">
-  <%= link_to "投稿一覧へ戻る", posts_path %>
+  <%= link_to "投稿一覧へ戻る", posts_path, class: "btn btn-secondary" %>
 </div>
+
+<%= render "comments/form", post: @post, comment: @comment %>
+<%= render "comments/index", post: @post, comments: @comments %>

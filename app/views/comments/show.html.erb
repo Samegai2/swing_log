@@ -1,0 +1,24 @@
+<h1 class="mb-4">コメント詳細</h1>
+
+<div class="card shadow-sm">
+  <div class="card-body">
+    <p><strong>ID：</strong><%= @comment.id %></p>
+    <p><strong>投稿タイトル：</strong><%= link_to @comment.post.title, admin_post_path(@comment.post) %></p>
+    <p><strong>投稿者：</strong><%= @comment.user&.name || "退会済みユーザー" %></p>
+    <p><strong>コメント：</strong><%= simple_format(@comment.body) %></p>
+    <p><strong>投稿日時：</strong><%= l @comment.created_at, format: :short %></p>
+    <p><strong>更新日時：</strong><%= l @comment.updated_at, format: :short %></p>
+
+    <% if @post %>
+      <%= link_to "コメント一覧へ戻る", admin_post_comments_path(@post), class: "btn btn-secondary" %>
+      <%= link_to "削除", admin_post_comment_path(@post, @comment),
+            data: { turbo_method: :delete, turbo_confirm: "このコメントを削除しますか？" },
+            class: "btn btn-danger" %>
+    <% else %>
+      <%= link_to "コメント一覧へ戻る", admin_comments_path, class: "btn btn-secondary" %>
+      <%= link_to "削除", admin_comment_path(@comment),
+            data: { turbo_method: :delete, turbo_confirm: "このコメントを削除しますか？" },
+            class: "btn btn-danger" %>
+    <% end %>
+  </div>
+</div>

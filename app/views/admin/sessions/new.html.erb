@@ -1,0 +1,23 @@
+<div class="row justify-content-center">
+  <div class="col-md-5">
+    <h1 class="mb-4">管理者ログイン</h1>
+
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <%= form_with url: admin_session_path, local: true do |f| %>
+          <div class="mb-3">
+            <%= f.label :email_address, "メールアドレス", class: "form-label" %>
+            <%= f.email_field :email_address, class: "form-control", required: true, autofocus: true %>
+          </div>
+
+          <div class="mb-3">
+            <%= f.label :password, "パスワード", class: "form-label" %>
+            <%= f.password_field :password, class: "form-control", required: true %>
+          </div>
+
+          <%= f.submit "ログイン", class: "btn btn-primary w-100" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

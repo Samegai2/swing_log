@@ -1,0 +1,60 @@
+<h1 class="mb-4">
+  <% if @post %>
+    コメント一覧：<%= @post.title %>
+  <% else %>
+    コメント一覧
+  <% end %>
+</h1>
+
+<%= form_with url: (@post ? admin_post_comments_path(@post) : admin_comments_path), method: :get, local: true, class: "row g-2 mb-4" do |f| %>
+  <div class="col-md-6">
+    <%= f.text_field :q, value: params[:q], placeholder: "コメント・投稿者・投稿タイトルで検索", class: "form-control" %>
+  </div>
+  <div class="col-auto">
+    <%= f.submit "検索", class: "btn btn-primary" %>
+  </div>
+<% end %>
+
+<div class="card shadow-sm">
+  <div class="card-body">
+    <table class="table table-hover align-middle">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>投稿タイトル</th>
+          <th>投稿者</th>
+          <th>コメント</th>
+          <th>日時</th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @comments.each do |comment| %>
+          <% show_path = @post ? admin_post_comment_path(@post, comment) : admin_comment_path(comment) %>
+          <% delete_path = show_path %>
+
+          <tr>
+            <td><%= comment.id %></td>
+            <td><%= link_to comment.post.title, admin_post_path(comment.post) %></td>
+            <td><%= comment.user&.name || "退会済みユーザー" %></td>
+            <td><%= truncate(comment.body, length: 40) %></td>
+            <td><%= l comment.created_at, format: :short %></td>
+            <td class="text-end">
+              <%= link_to "詳細", show_path, class: "btn btn-sm btn-outline-primary" %>
+              <%= link_to "削除", delete_path,
+                    data: { turbo_method: :delete, turbo_confirm: "このコメントを削除しますか？" },
+                    class: "btn btn-sm btn-outline-danger" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<% if @post %>
+  <div class="mt-3">
+    <%= link_to "投稿詳細へ戻る", admin_post_path(@post), class: "btn btn-secondary" %>
+  </div>
+<% end %>

@@ -66,4 +66,10 @@ end
 
 attach_image(post3, "sample-post3.jpeg")
 
+Admin.find_or_create_by!(email_address: "admin@example.com") do |admin|
+  admin.name = "管理者"
+  admin.password = "password"
+  admin.password_confirmation = "password"
+end
+
 puts "seedの実行が完了しました"

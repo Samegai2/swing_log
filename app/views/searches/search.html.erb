@@ -1,0 +1,72 @@
+<h1 class="mb-4">検索結果</h1>
+
+<div class="mb-4">
+  <p class="mb-1">検索ワード：<strong><%= @content %></strong></p>
+</div>
+
+<% if @records.blank? %>
+  <div class="alert alert-warning">検索結果はありません。</div>
+<% elsif @model == "user" %>
+  <h2 class="mb-3">ユーザー検索結果</h2>
+
+  <div class="row g-3">
+    <% @records.each do |user| %>
+      <div class="col-12">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">
+              <%= link_to user.name, user_path(user), class: "text-success fw-bold" %>
+            </h5>
+
+            <p class="card-text">
+              <strong>自己紹介：</strong>
+              <%= user.introduction.presence || "自己紹介はまだありません。" %>
+            </p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <h2 class="mb-3">投稿検索結果</h2>
+
+  <div class="row g-3">
+    <% @records.each do |post| %>
+      <div class="col-12">
+        <div class="card shadow-sm">
+          <div class="row g-0">
+            <div class="col-md-3">
+              <% if post.image.attached? %>
+                <%= image_tag post.image, class: "img-fluid rounded-start post-card-image-contain" %>
+              <% else %>
+                <div class="bg-light d-flex align-items-center justify-content-center h-100 p-5">
+                  NO IMAGE
+                </div>
+              <% end %>
+            </div>
+
+            <div class="col-md-9">
+              <div class="card-body">
+                <h5 class="card-title">
+                  <%= link_to post.title, post_path(post), class: "text-success fw-bold" %>
+                </h5>
+
+                <p><strong>投稿者：</strong><%= link_to post.user.name, user_path(post.user) %></p>
+                <p><strong>施設名：</strong><%= post.facility_name %></p>
+                <p><strong>住所：</strong><%= post.address %></p>
+                <p><strong>種別：</strong><%= post.play_style_i18n %></p>
+                <p><strong><%= post.score_label %>：</strong><%= post.score %></p>
+                <p><strong>感想：</strong><%= truncate(post.body, length: 100) %></p>
+
+                <div class="text-muted small mt-3">
+                  <p class="mb-1">投稿日時：<%= post.created_at.strftime("%Y/%m/%d %H:%M") %></p>
+                  <p class="mb-0">更新日時：<%= post.updated_at.strftime("%Y/%m/%d %H:%M") %></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
