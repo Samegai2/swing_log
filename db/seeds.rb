@@ -66,6 +66,30 @@ end
 
 attach_image(post3, "sample-post3.jpeg")
 
+comment1 = Comment.find_or_create_by!(
+user: test_user,
+post: post1,
+body: "景色がきれいで、気持ちよくプレーできそうですね！"
+)
+
+comment2 = Comment.find_or_create_by!(
+user: test_user2,
+post: post1,
+body: "このゴルフ場に行ってみたいです。"
+)
+
+comment3 = Comment.find_or_create_by!(
+user: test_user,
+post: post2,
+body: "パターが上達していてすごいですね！"
+)
+
+comment4 = Comment.find_or_create_by!(
+user: test_user2,
+post: post3,
+body: "次回の90切りも応援しています！"
+)
+
 Admin.find_or_create_by!(email_address: "admin@example.com") do |admin|
   admin.name = "管理者"
   admin.password = "password"

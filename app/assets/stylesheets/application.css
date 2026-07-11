@@ -835,3 +835,19 @@ button {
   color: #e9ecef !important;
   text-decoration: underline;
 }
+
+.admin-post-image-wrapper {
+  width: 100%;
+  max-width: 100%;
+  text-align: center;
+  overflow: hidden;
+}
+
+.admin-post-image {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  max-height: 500px;
+  margin: 0 auto;
+  object-fit: contain;
+}

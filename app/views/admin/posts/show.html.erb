@@ -3,8 +3,10 @@
 <div class="card shadow-sm mb-4">
   <div class="card-body">
     <% if @post.image.attached? %>
-      <div class="mb-3">
-        <%= image_tag @post.image, class: "admin-post-image" %>
+      <div class="admin-post-image-wrapper mb-4">
+        <%= image_tag @post.image,
+              class: "admin-post-image",
+              alt: @post.title %>
       </div>
     <% end %>
 

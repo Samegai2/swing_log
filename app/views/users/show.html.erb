@@ -25,37 +25,80 @@
 <h2>投稿一覧</h2>
 
 <div class="post-list">
-  <% @posts.each do |post| %>
-    <div class="post-card">
-      <% if post.image.attached? %>
-        <div class="post-image">
-          <%= image_tag post.image, class: "post-card-image" %>
+  <% if @posts.present? %>
+    <% @posts.each do |post| %>
+      <div class="post-card">
+        <% if post.image.attached? %>
+          <div class="post-image">
+            <%= image_tag post.image, class: "post-card-image" %>
+          </div>
+        <% end %>
+
+        <h3>
+          <%= link_to post.title, post_path(post) %>
+        </h3>
+
+        <p><strong>施設名：</strong><%= post.facility_name %></p>
+        <p><strong>住所：</strong><%= post.address %></p>
+        <p><strong>種別：</strong><%= post.play_style_i18n %></p>
+
+        <p>
+          <strong><%= post.score_label %>：</strong>
+          <%= post.score %>
+        </p>
+
+        <p class="post-body-one-line">
+          <strong>感想：</strong>
+          <%= truncate(post.body, length: 100) %>
+        </p>
+
+        <div class="post-date">
+          <p>投稿日時：<%= post.created_at.strftime("%Y/%m/%d %H:%M") %></p>
+          <p>更新日時：<%= post.updated_at.strftime("%Y/%m/%d %H:%M") %></p>
         </div>
-      <% end %>
-
-      <h3>
-        <%= link_to post.title, post_path(post) %>
-      </h3>
-
-      <p><strong>施設名：</strong><%= post.facility_name %></p>
-      <p><strong>住所：</strong><%= post.address %></p>
-      <p><strong>種別：</strong><%= post.play_style_i18n %></p>
-
-      <p>
-        <strong><%= post.score_label %>：</strong>
-        <%= post.score %>
-      </p>
-
-      <p class="post-body-one-line">
-        <strong>感想：</strong>
-        <%= truncate(post.body, length: 100) %>
-      </p>
-
-      <div class="post-date">
-        <p>投稿日時：<%= post.created_at.strftime("%Y/%m/%d %H:%M") %></p>
-        <p>更新日時：<%= post.updated_at.strftime("%Y/%m/%d %H:%M") %></p>
       </div>
-    </div>
+    <% end %>
+  <% else %>
+    <p class="text-muted">まだ投稿はありません。</p>
   <% end %>
 </div>
+
+<% if @user == Current.session.user %>
+  <section class="mt-5">
+    <h2 class="mb-3">自分のコメント一覧</h2>
+
+    <% if @comments.present? %>
+      <div class="list-group">
+        <% @comments.each do |comment| %>
+          <div class="list-group-item">
+            <div class="d-flex justify-content-between align-items-start">
+              <div>
+                <p class="mb-1">
+                  <strong>投稿：</strong>
+
+                  <% if comment.post.present? %>
+                    <%= link_to comment.post.title, post_path(comment.post) %>
+                  <% else %>
+                    削除済みの投稿
+                  <% end %>
+                </p>
+
+                <p class="mb-1">
+                  <strong>コメント：</strong>
+                  <%= comment.body %>
+                </p>
+
+                <small class="text-muted">
+                  <%= comment.created_at.strftime("%Y/%m/%d %H:%M") %>
+                </small>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <p class="text-muted">まだコメントはありません。</p>
+    <% end %>
+  </section>
+<% end %>
 
