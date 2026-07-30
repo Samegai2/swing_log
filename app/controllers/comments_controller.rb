@@ -1,6 +1,5 @@
 class CommentsController < ApplicationController
   before_action :set_post
-  before_action :require_user
 
   def create
     @comment = Current.session.user.comments.new(comment_params)
@@ -28,10 +27,6 @@ class CommentsController < ApplicationController
 
   def set_post
     @post = Post.find(params[:post_id])
-  end
-
-  def require_user
-    redirect_to new_session_path, alert: "ログインしてください" unless Current.session&.user
   end
 
   def comment_params
