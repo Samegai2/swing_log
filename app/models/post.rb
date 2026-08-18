@@ -3,6 +3,11 @@ class Post < ApplicationRecord
 
   has_many :comments, dependent: :destroy
 
+  has_many :favorites, dependent: :destroy
+  has_many :favorited_users,
+         through: :favorites,
+         source: :user
+
   has_one_attached :image
 
   enum :play_style, {
@@ -17,6 +22,10 @@ class Post < ApplicationRecord
   validates :play_style, presence: true
   validates :score, presence: true
   validates :body, presence: true
+
+  def favorited_by?(user)
+    user.present? && favorites.exists?(user_id: user.id)
+  end
 
   def score_label
     if driving_range?
