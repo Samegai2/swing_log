@@ -10,9 +10,20 @@ Rails.application.routes.draw do
 
   resources :posts do
     resources :comments, only: [:create, :destroy]
+    resource :favorite, only: [:create, :destroy]
   end
 
-  resources :users, only: [:new, :create, :show, :edit, :update, :destroy]
+  resources :users, only: [:new, :create, :show, :edit, :update, :destroy] do
+    resource :relationship, only: [:create, :destroy]
+
+    get "followings",
+      to: "relationships#followings",
+      as: :followings
+
+    get "followers",
+        to: "relationships#followers",
+        as: :followers
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   namespace :admin do
