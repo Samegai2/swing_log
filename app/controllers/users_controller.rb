@@ -20,7 +20,8 @@ class UsersController < ApplicationController
   end
 
   def show
-    @posts = @user.posts.order(created_at: :desc)
+    @user = User.find(params[:id])
+    @posts = @user.posts.includes(:favorites).order(created_at: :desc)
     @comments = @user.comments.includes(:post).order(created_at: :desc)
   end
 
