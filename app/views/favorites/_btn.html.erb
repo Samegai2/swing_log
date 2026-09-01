@@ -1,0 +1,24 @@
+<div class="favorite-area">
+  <% if Current.user.present? %>
+    <% if post.favorited_by?(Current.user) %>
+      <%= button_to "♥ #{post.favorites.count}",
+                    post_favorite_path(post),
+                    method: :delete,
+                    class: "btn btn-danger favorite-button",
+                    form: { class: "inline-button-form" },
+                    aria: { label: "いいねを取り消す" } %>
+    <% else %>
+      <%= button_to "♡ #{post.favorites.count}",
+                    post_favorite_path(post),
+                    method: :post,
+                    class: "btn btn-outline-danger favorite-button",
+                    form: { class: "inline-button-form" },
+                    aria: { label: "いいねする" } %>
+    <% end %>
+  <% else %>
+    <%= link_to "♡ #{post.favorites.count}",
+                new_session_path,
+                class: "btn btn-outline-danger favorite-button",
+                title: "ログインするといいねできます" %>
+  <% end %>
+</div>

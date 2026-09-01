@@ -17,6 +17,8 @@
     <strong>感想：</strong><%= simple_format(@post.body, {}, wrapper_tag: "span") %>
   </p>
 
+  <%= render "favorites/btn", post: @post %>
+
   <% if Current.session&.user == @post.user %>
     <div class="post-actions">
       <%= link_to "編集", edit_post_path(@post), class: "btn btn-success" %>

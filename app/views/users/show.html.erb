@@ -52,6 +52,8 @@
           <%= truncate(post.body, length: 20) %>
         </p>
 
+        <%= render "favorites/btn", post: post %>
+
         <div class="post-date">
           <p>投稿日時：<%= post.created_at.strftime("%Y/%m/%d %H:%M") %></p>
           <p>更新日時：<%= post.updated_at.strftime("%Y/%m/%d %H:%M") %></p>
