@@ -1,0 +1,22 @@
+<div class="relationship-user-list">
+  <% users.each do |user| %>
+    <div class="relationship-user-card">
+      <div class="relationship-user-info">
+        <h3>
+          <%= link_to user.name, user_path(user) %>
+        </h3>
+
+        <p>
+          <%= user.introduction.presence || "自己紹介はまだありません。" %>
+        </p>
+
+        <div class="relationship-counts">
+          <span>フォロー：<%= user.followings.count %></span>
+          <span>フォロワー：<%= user.followers.count %></span>
+        </div>
+      </div>
+
+      <%= render "relationships/btn", user: user %>
+    </div>
+  <% end %>
+</div>

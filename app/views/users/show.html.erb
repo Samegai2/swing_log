@@ -9,6 +9,18 @@
     <%= @user.introduction.presence || "自己紹介はまだありません。" %>
   </p>
 
+  <div class="follow-summary">
+    <%= link_to "フォロー #{@user.followings.count}",
+                user_followings_path(@user),
+                class: "follow-summary-link" %>
+
+    <%= link_to "フォロワー #{@user.followers.count}",
+                user_followers_path(@user),
+                class: "follow-summary-link" %>
+  </div>
+
+  <%= render "relationships/btn", user: @user %>
+
   <% if @user == Current.session.user %>
     <div class="user-profile-actions">
       <%= link_to "ユーザー情報編集", edit_user_path(@user), class: "btn btn-success" %>

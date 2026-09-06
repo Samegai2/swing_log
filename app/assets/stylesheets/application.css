@@ -852,3 +852,80 @@ button {
   margin: 0 auto;
   object-fit: contain;
 }
+
+.inline-button-form {
+  display: inline-block;
+  margin: 0;
+}
+
+.favorite-area {
+  margin: 12px 0;
+}
+
+.favorite-button {
+  min-width: 70px;
+}
+
+.follow-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin: 16px 0;
+}
+
+.follow-summary-link {
+  color: #198754;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.follow-summary-link:hover {
+  text-decoration: underline;
+}
+
+.relationship-button-area {
+  margin: 12px 0;
+}
+
+.relationship-user-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 24px 0;
+}
+
+.relationship-user-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 20px;
+  border: 1px solid #dddddd;
+  border-radius: 8px;
+  background-color: #ffffff;
+}
+
+.relationship-user-info {
+  min-width: 0;
+}
+
+.relationship-user-info h3 {
+  margin-top: 0;
+}
+
+.relationship-user-info p {
+  overflow-wrap: anywhere;
+}
+
+.relationship-counts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+@media (max-width: 600px) {
+  .relationship-user-card {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,17 @@
+<% if Current.user.present? && Current.user != user %>
+  <div class="relationship-button-area">
+    <% if Current.user.following?(user) %>
+      <%= button_to "フォロー解除",
+                    user_relationship_path(user),
+                    method: :delete,
+                    class: "btn btn-secondary",
+                    form: { class: "inline-button-form" } %>
+    <% else %>
+      <%= button_to "フォローする",
+                    user_relationship_path(user),
+                    method: :post,
+                    class: "btn btn-success",
+                    form: { class: "inline-button-form" } %>
+    <% end %>
+  </div>
+<% end %>

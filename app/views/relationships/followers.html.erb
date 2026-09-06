@@ -1,0 +1,13 @@
+<h1><%= @user.name %>さんのフォロワー一覧</h1>
+
+<% if @users.present? %> 
+  <%= render "users/index", users: @users %>
+<% else %>
+  <p class="text-muted">フォロワーはいません。</p>
+<% end %>
+
+<div class="back-link"> 
+  <%= link_to "ユーザーページへ戻る", 
+              user_path(@user), 
+              class: "btn btn-secondary" %>
+</div>
